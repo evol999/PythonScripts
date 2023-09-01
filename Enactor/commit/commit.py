@@ -28,7 +28,7 @@ def capture_commit_message():
 
 def print_values():
     if commit_message != "":
-        output = f"""svn commit -m "#{ticket_content} {commit_message} @{authorization_code}" """
+        output = f"""svn commit -m "#{ticket_content} Fix for {commit_message} @{authorization_code}" """
     else:
         output = f"""svn commit -m "#{ticket_content} @{authorization_code}" """
     pyperclip.copy(output)
