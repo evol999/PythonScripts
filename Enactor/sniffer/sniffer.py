@@ -77,11 +77,11 @@ def tcp_relay(relay_ip, relay_port, server_ip, server_port):
         threading.Thread(target=handle_client, args=(client_socket, server_ip, server_port)).start()
 
 # USUAL PED
-# tcp_relay('192.168.101.173', 8001, '192.168.101.205', 16107)
+tcp_relay('192.168.101.173', 8001, '192.168.101.205', 16107)
 # tcp_relay('192.168.101.173', 8001, '192.168.101.170', 16107)
 # tcp_relay('192.168.101.173', 8001, '192.168.132.2', 16107)
 # tcp_relay('192.168.137.1', 8001, '192.168.132.2', 16107)
 # VAS
 # tcp_relay('192.168.101.173', 8001, '192.168.102.98', 16108)
 # The Works PED
-tcp_relay('192.168.101.173', 8001, '192.168.102.43', 16107)
+# tcp_relay('192.168.101.173', 8001, '192.168.102.43', 16107)
