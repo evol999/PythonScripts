@@ -38,14 +38,14 @@ def handle_client(client_socket, server_ip, server_port):
                 dst.sendall(data)
 
         except ConnectionResetError:
-            timestamp = datetime.now().strftime("%y%m%d %H:%M:%S.%f:")[:-3]
+            # timestamp = datetime.now().strftime("%y%m%d %H:%M:%S.%f:")[:-3]
             print_with_timestamp("Client disconnected.")
             # Additional code for handling client disconnection
         except OSError:
-            timestamp = datetime.now().strftime("%y%m%d %H:%M:%S.%f:")[:-3]
+            # timestamp = datetime.now().strftime("%y%m%d %H:%M:%S.%f:")[:-3]
             print_with_timestamp("Bad file descriptor")
         except Exception as e:
-            timestamp = datetime.now().strftime("%y%m%d %H:%M:%S.%f:")[:-3]
+            # timestamp = datetime.now().strftime("%y%m%d %H:%M:%S.%f:")[:-3]
             print_with_timestamp(f"An error occurred: {str(e)}")
 
         finally:
