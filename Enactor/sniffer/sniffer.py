@@ -12,7 +12,7 @@ def handle_client(client_socket, server_ip, server_port):
         server_socket.connect((server_ip, server_port))
         print_with_timestamp(f'Relay connected to remote host: {server_ip}:{server_port}')
     except socket.timeout:
-        print_with_timestamp("Timeout occurred. Check your network connection.")
+        print_with_timestamp(f'Timeout occurred. Check your network connection. {server_ip}:{server_port}')
         # Additional error handling or cleanup code specific to timeout    
 
     def forward(src, dst):
