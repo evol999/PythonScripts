@@ -49,18 +49,29 @@ def handle_client(client_socket, server_ip, server_port):
             print_with_timestamp(f"An error occurred: {str(e)}")
 
         finally:
+            # Print when disconnecting from the local host
+            if src != None:
+                # tempAddress = src.getpeername()
+                # print_with_timestamp(f"{threading.current_thread().ident} Relay disconnected from local host: {tempAddress[0]}:{tempAddress[1]}")
+                print_with_timestamp(f'{threading.current_thread().ident} Relay disconnected from local host: {server_ip}:{server_port}')
+            else:
+                print_with_timestamp(f"{threading.current_thread().ident} Relay from local host already closed")
+
+            # Print when disconnecting from the remote host
+            if dst != None:
+                # tempAddress = dst.getpeername()
+                # print_with_timestamp(f"{threading.current_thread().ident} Relay disconnected from remote host: {tempAddress[0]}:{tempAddress[1]}")
+                print_with_timestamp(f'{threading.current_thread().ident} Relay disconnected from remote host: {server_ip}:{server_port}')
+            else:
+                print_with_timestamp(f"{threading.current_thread().ident} Relay from remote host already closed")
+
+
             # Close the connection to the local host
             client_socket.close()
 
-            # Print when disconnecting from the local host
-            print_with_timestamp(f'Relay disconnected from local host: {server_ip}:{server_port}')
-
             # Close the connection to the remote host
             server_socket.close()
-            
-            # Print when disconnecting from the remote host
-            print_with_timestamp(f'Relay disconnected from remote host: {server_ip}:{server_port}')
-    
+               
     threading.Thread(target=forward, args=(client_socket, server_socket)).start()
     threading.Thread(target=forward, args=(server_socket, client_socket)).start()
 
