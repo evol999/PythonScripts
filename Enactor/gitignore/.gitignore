@@ -1,0 +1,13 @@
+# Ignore everything
+*
+# Don't ignore directories, so we can recurse into them
+!*/
+# Don't ignore .gitignore and *.foo files
+target/
+!/.gitignore
+!enactor.xml
+!enactor.log.properties
+!*.java
+!Packages.xml
+!*_1.0.xml
+!**/PageDefinition/**/*.xml
