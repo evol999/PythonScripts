@@ -10,4 +10,6 @@ target/
 !*.java
 !Packages.xml
 !*_1.0.xml
+!*.js
 !**/PageDefinition/**/*.xml
+!**/MessageResource/**/*.xml
