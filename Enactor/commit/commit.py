@@ -52,7 +52,7 @@ def display_menu():
     print("5. Get Message For Eclipse for 2.7")
     print("6. Print Console Command for 2.7")
     print("7. Get Message For Eclipse for RCX")
-    print("8. Print Console Commandcfor RCX")
+    print("8. Print Console Command for RCX")
     print("0. Exit")
 
 def main():
