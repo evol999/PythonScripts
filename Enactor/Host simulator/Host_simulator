@@ -1,0 +1,93 @@
+from flask import Flask, request, jsonify, Response
+
+app = Flask(__name__)
+
+# Define the route to handle requests at the specified endpoint
+@app.route('/WebCardAuthorisation/CardAuthorisationServlet', methods=['POST', 'GET'])
+def card_authorisation():
+    if request.method == 'POST':
+        # Create a string representation of the XML
+        xml_data = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<retail:cardAuthRequestResponse xmlns:core="http://www.enactor.com/core" xmlns:hta="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/api/200803" xmlns:htd="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/200803" xmlns:htt="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/types/200803" xmlns:ns6="http://www.enactor.com/retail/storedRetailTransaction/service" xmlns:retail="http://www.enactor.com/retail" xmlns:sref="http://docs.oasis-open.org/wsbpel/2.0/serviceref" xmlns:tools="http://www.enactor.com/tools" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <retail:requesterId>f6c2ba4781ebe18c:a689d50:191e0088b34:-355b</retail:requesterId>
+    <retail:request xsi:type="retail:Apacs30Request">
+        <retail:deviceID>pos1@0001.enactor</retail:deviceID>
+        <retail:isServerAssignedTId>true</retail:isServerAssignedTId>
+        <retail:messageNumber>351</retail:messageNumber>
+        <retail:retryCount>0</retail:retryCount>
+        <retail:terminalId>30939001</retail:terminalId>
+        <retail:linkTypeHost>true</retail:linkTypeHost>
+        <retail:transactionDateTime>2024-09-06T17:37:04+01:00</retail:transactionDateTime>
+        <retail:expectResponse>true</retail:expectResponse>
+        <retail:requestSentToHost>true</retail:requestSentToHost>
+        <retail:transactionAmount>1212</retail:transactionAmount>
+        <retail:swiped>true</retail:swiped>
+        <retail:hasTrack2>true</retail:hasTrack2>
+        <retail:acquirerId>
+            <retail:acquirerId>WORLDPAY_SAAS_TEST</retail:acquirerId>
+            <retail:groupId groupHierarchyId="All" groupTypeId="region">All</retail:groupId>
+        </retail:acquirerId>
+        <retail:cardTypeKey>
+            <retail:cardTypeId>VISA</retail:cardTypeId>
+            <retail:groupId groupHierarchyId="All" groupTypeId="region">All</retail:groupId>
+            <retail:paymentMerchantId></retail:paymentMerchantId>
+        </retail:cardTypeKey>
+        <retail:expiryDate>2503</retail:expiryDate>
+        <retail:isoCountry>GBR</retail:isoCountry>
+        <retail:isoCurrency>GBP</retail:isoCurrency>
+        <retail:merchantId>21249872</retail:merchantId>
+        <retail:p2pEncryptedPan>7CC4DC6B1282D11045802F075FD43C9C62D5AA9BDA5B876C</retail:p2pEncryptedPan>
+        <retail:p2pEncryptedCSC></retail:p2pEncryptedCSC>
+        <retail:p2peKeySerialNumber>FFFF3103170011C013BC</retail:p2peKeySerialNumber>
+        <retail:p2peInitializationVector>A78FAC4AD99F935D</retail:p2peInitializationVector>
+        <retail:p2pePanKeySerialNumber>FFFF3103170011C013BD</retail:p2pePanKeySerialNumber>
+        <retail:p2pePanInitializationVector>347218456244D678</retail:p2pePanInitializationVector>
+        <retail:readerType>Trinity</retail:readerType>
+        <retail:readerSerialNumber>450800864</retail:readerSerialNumber>
+        <retail:keyedAtPED>false</retail:keyedAtPED>
+        <retail:paymentMerchantId>testAutMerchant</retail:paymentMerchantId>
+        <retail:hasMSR>true</retail:hasMSR>
+        <retail:hasPinPad>true</retail:hasPinPad>
+        <retail:hasContactless>true</retail:hasContactless>
+        <retail:serviceCode>101</retail:serviceCode>
+        <retail:signatureRequired>true</retail:signatureRequired>
+        <retail:terminalTransactionNumber>2404</retail:terminalTransactionNumber>
+        <retail:transactionId>PDC1-20240906173704-2404</retail:transactionId>
+    </retail:request>
+    <retail:response xsi:type="retail:Apacs30Response">
+        <retail:deviceID>pos1@0001.enactor</retail:deviceID>
+        <retail:isServerAssignedTId>true</retail:isServerAssignedTId>
+        <retail:messageNumber>351</retail:messageNumber>
+        <retail:retryCount>0</retail:retryCount>
+        <retail:terminalId>30939001</retail:terminalId>
+        <retail:linkTypeHost>true</retail:linkTypeHost>
+        <retail:transactionDateTime>1970-01-01T00:00:00Z</retail:transactionDateTime>
+        <retail:decline>true</retail:decline>
+        <retail:displayMessage>NOT AUTHORISED</retail:displayMessage>
+        <retail:schemeReferenceData>000000003974518</retail:schemeReferenceData>
+        <retail:cardToken>uAxUGpcSw9qimw7bPFGpWfPHWMcJFVf6z9oaOTVyL4Q=</retail:cardToken>
+        <retail:cardTokenStored>false</retail:cardTokenStored>
+    <retail:acquirerResponseCode>65</retail:acquirerResponseCode>
+    <retail:issuerAuthenticationData>B5179273008A00003141</retail:issuerAuthenticationData>
+    <retail:issuerScriptData>FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</retail:issuerScriptData>
+    </retail:response>
+    <retail:attempts>1</retail:attempts>
+    <retail:timeRequestCreated>1725640630720</retail:timeRequestCreated>
+    <retail:timeRequestReceived>1726041398300</retail:timeRequestReceived>
+    <retail:timeRequestAccepted>1726041398301</retail:timeRequestAccepted>
+    <retail:timeRequestAllocated>1726041398385</retail:timeRequestAllocated>
+    <retail:timeRequestSent>1726041398406</retail:timeRequestSent>
+    <retail:timeResponseReceived>1726041400465</retail:timeResponseReceived>
+    <retail:timeResponseSent>1726041400468</retail:timeResponseSent>
+    <retail:hasFailedOver>false</retail:hasFailedOver>
+    <retail:expectResponse>true</retail:expectResponse>
+</retail:cardAuthRequestResponse>'''
+
+        # Return the XML with the correct content type
+        return Response(xml_data, mimetype='application/xml')        
+    elif request.method == 'GET':
+        return jsonify({"message": "Service is running"}), 200
+
+# Run the Flask app on the specified IP and port
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=39856)
