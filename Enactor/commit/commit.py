@@ -4,8 +4,7 @@ import os
 # Global variables to store the content of the clipboard
 ticket_content = ""
 review_content = ""
-authorization_code_27 = ""
-authorization_code_1331 = ""
+authorization_code = ""
 commit_message = ""
 
 def capture_ticket():
@@ -14,16 +13,10 @@ def capture_ticket():
     output = f"""Ticket captured: {ticket_content}""" 
     print(output)
 
-def capture_authorization_code_27():
-    global authorization_code_27
-    authorization_code_27 = pyperclip.paste()
-    output = f"""Auth code for 2.7 captured: {authorization_code_27}""" 
-    print(output)
-
-def capture_authorization_code_1331():
-    global authorization_code_1331
-    authorization_code_1331 = pyperclip.paste()
-    output = f"""Auth code for 1331 captured: {authorization_code_1331}"""
+def capture_authorization_code():
+    global authorization_code
+    authorization_code = pyperclip.paste()
+    output = f"""Auth code captured: {authorization_code}""" 
     print(output)
 
 def capture_commit_message():
@@ -50,14 +43,11 @@ def get_eclipse_msg(authorization_code):
 
 def display_menu():
     print("Menu:")
-    print("1. Capture Ticket")
-    print("2. Capture Auth Code for 2.7")
-    print("3. Capture Auth Code for 1331")
-    print("4. Capture Commit Message")
-    print("5. Eclipse Message for 2.7")
-    print("6. Console Command for 2.7")
-    print("7. Eclipse Message for 1331")
-    print("8. Console Command for 1331")
+    print("1. Capture Ticket number")
+    print("2. Capture Ticket title")
+    print("3. Capture Auth Code")
+    print("4. Generate Eclipse Message")
+    print("5. Generate console Command")
     print("0. Exit")
 
 def clear_screen():
@@ -77,19 +67,15 @@ def main():
         if choice == "1":
             capture_ticket()
         elif choice == "2":
-            capture_authorization_code_27()
-        elif choice == "3":
-            capture_authorization_code_1331()
-        elif choice == "4":
             capture_commit_message()
+        elif choice == "3":
+            capture_authorization_code()
+        elif choice == "4":
+            get_eclipse_msg(authorization_code)
         elif choice == "5":
-            get_eclipse_msg(authorization_code_27)
+            print_values(authorization_code)
         elif choice == "6":
-            print_values(authorization_code_27)
-        elif choice == "7":
-            get_eclipse_msg(authorization_code_1331)
-        elif choice == "8":
-            print_values(authorization_code_1331)
+            print_values(authorization_code)
         elif choice == "0":
             print("Exiting the program.")
             break

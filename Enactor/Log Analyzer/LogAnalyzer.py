@@ -17,7 +17,14 @@ time_pattern = re.compile(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}')
 # input_file_path = r"/Users/alrod/Temp/LOGS_T650/PDC.TXT"  # Update with your input file path
 # input_file_path = r"/Users/alrod/Temp/LOGS_T650/PDC01.TXT"  # Update with your input file path
 # input_file_path = r"/Users/alrod/Tickets/PAY-1900 STUCK AUTHO SCREEN/Wrong002.txt"  # Update with your input file path
-input_file_path = r"/Users/alrod/Tickets/PAY-1900 STUCK AUTHO SCREEN/Right002.txt"  # Update with your input file path
+# input_file_path = r"/Users/alrod/Tickets/PAY-1900 STUCK AUTHO SCREEN/Right002.txt"  # Update with your input file path
+# input_file_path = r"/Users/alrod/Downloads/Support/logs/logs/pos.log"  # Update with your input file path
+# input_file_path = r"/Users/alrod/Downloads/Support/logs/logs (1)/pos.log"  # Update with your input file path
+# input_file_path = r"/Users/alrod/Downloads/Support/INC0419373 (store 374 - pos 1 - 20241004)/2024-10-03-store0374/pdp-pdp-0374-01-0-PdpServer.log"  # Update with your input file path
+# input_file_path = r"/Users/alrod/Downloads/Support/INC0419373 (store 374 - pos 1 - 20241004)/2024-10-03-store0374/pdc-pdh-nfpos-02-0374-0-pdc.log.2024-10-03.1"  # Update with your input file path
+input_file_path = r"/Users/alrod/Downloads/Support/INC0419373 (store 374 - pos 1 - 20241004)/2024-10-03-store0374/pdc-pdh-nfpos-01-0374-0-pdc.log.2024-10-03.1`"  # Update with your input file path
+# input_file_path = r""  # Update with your input file path
+
 
 # Extract the directory path and file name from the input file path
 input_dir, input_filename = os.path.split(input_file_path)
@@ -27,7 +34,7 @@ output_dir = os.path.join(input_dir, 'results')
 os.makedirs(output_dir, exist_ok=True)
 
 # Create the output file path
-output_file_path = os.path.join(output_dir, input_filename)
+output_file_path = os.path.join(output_dir, "r_" + input_filename)
 
 # Open the input file for reading and the output file for writing
 with open(input_file_path, 'r') as input_file, open(output_file_path, 'w') as output_file:
@@ -53,7 +60,12 @@ with open(input_file_path, 'r') as input_file, open(output_file_path, 'w') as ou
         # writeLine = ("Thread-6" in line or "Thread-278" in line) or line.startswith('Received ')
         # writeLine = ("Thread-" in line) or line.startswith('Received ')
         # writeLine = ("Thread-" in line or "PSDK respond" in line) or line.startswith('Received ')
-        writeLine = ("received: " in line)
+        # writeLine = ("received: " in line)
+        # writeLine = ("ncr_printer" in line or "StartUp - POS startup" in line)
+        # writeLine = ("TcpIpCommLink.ReceiverThread" in line or ("PDPServer Timer" in line) and "ERROR" in line)
+        # writeLine = ("pool-6-thread-1" in line)
+        writeLine = ("Licence has invalid" not in line)
+        # writeLine = ("ClientProxy-" in line)
         if writeLine:
             # If it does, write the line to the output file
             output_file.write(line)
